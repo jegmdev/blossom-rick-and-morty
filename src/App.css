@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.sidebar {
+  width: 20%;
+  min-width: 250px;
+  background-color: #f8f9fa;
+  padding: 1rem;
+}
+
+.character-item {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem;
+  border-radius: 8px;
+  transition: background 0.3s;
+}
+
+.character-item:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.character-image {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 10px;
+}
+
+.favorite-icon {
+  color: #28a745;
+  font-size: 1.2rem;
+}
+
+.unfavorite-icon {
+  color: gray;
+  font-size: 1.2rem;
+}
