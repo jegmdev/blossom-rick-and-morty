@@ -80,7 +80,7 @@ const CharacterDetail: React.FC = () => {
 
   return (
     <div className="bg-white text-black p-6 px-4 sm:px-6 md:px-16 lg:px-28 xl:px-[200px] rounded-lg max-w-auto mx-auto">
-      <div className="flex flex-col items-center sm:items-start relative">
+      <div className="flex flex-col items-left sm:items-start relative">
         <img
           src={character.image}
           alt={character.name}
@@ -91,7 +91,7 @@ const CharacterDetail: React.FC = () => {
         </h2>
         <button
           onClick={toggleStarred}
-          className="bg-white rounded-full p-2 absolute left-12 bottom-10 shadow-md transition-transform active:scale-90"
+          className="bg-white rounded-full p-2 absolute left-[4rem] bottom-10 shadow-md transition-transform active:scale-90"
         >
           <FaHeart
             className={`text-lg ${isStarred ? "text-green-500" : "text-gray-400"}`}
