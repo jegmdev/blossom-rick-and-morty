@@ -1,116 +1,38 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import { GET_CHARACTERS } from "../graphql/queries";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Home: React.FC = () => {
   const { loading, error, data } = useQuery(GET_CHARACTERS);
+  const navigate = useNavigate();
 
-  // Estados
-  const [characterFilter, setCharacterFilter] = useState("All");
-  const [speciesFilter, setSpeciesFilter] = useState("All");
-  const [sortOrder, setSortOrder] = useState("A-Z");
-  const [favorites, setFavorites] = useState<string[]>([]);
-
-  // Cargar favoritos desde localStorage
   useEffect(() => {
-    const storedFavorites = JSON.parse(localStorage.getItem("favorites") || "[]");
-    setFavorites(storedFavorites);
-  }, []);
+    if (!loading && data) {
+      const storedFavorites = JSON.parse(localStorage.getItem("favorites") || "[]");
+      const allCharacters = data.characters.results;
 
-  // Alternar favoritos
-  const toggleFavorite = (id: string) => {
-    const updatedFavorites = favorites.includes(id)
-      ? favorites.filter((fav) => fav !== id)
-      : [...favorites, id];
+      // Buscar el primer personaje favorito
+      const firstFavorite = allCharacters.find((char: any) =>
+        storedFavorites.includes(char.id)
+      );
 
-    setFavorites(updatedFavorites);
-    localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
-  };
+      if (firstFavorite) {
+        navigate(`/character/${firstFavorite.id}`);
+      } else {
+        // Si no hay favoritos, usar el personaje con id "1" como fallback
+        const fallbackCharacter = allCharacters.find((char: any) => char.id === "1");
+        if (fallbackCharacter) {
+          navigate(`/character/1`);
+        }
+      }
+    }
+  }, [loading, data, navigate]);
 
   if (loading) return <p className="text-black">Loading...</p>;
   if (error) return <p className="text-red-500">Error: {error.message}</p>;
 
-  // Filtrar personajes
-  const filteredCharacters = data.characters.results.filter((character: any) => {
-    const isFavorite = favorites.includes(character.id);
-    const matchesCharacter =
-      characterFilter === "All" ||
-      (characterFilter === "Starred" && isFavorite) ||
-      (characterFilter === "Others" && !isFavorite);
-
-    const matchesSpecies = speciesFilter === "All" || character.species === speciesFilter;
-
-    return matchesCharacter && matchesSpecies;
-  });
-
-  // Ordenar personajes
-  const sortedCharacters = [...filteredCharacters].sort((a, b) => {
-    if (sortOrder === "A-Z") {
-      return a.name.localeCompare(b.name);
-    } else {
-      return b.name.localeCompare(a.name);
-    }
-  });
-
-  return (
-    <div className="text-center bg-white min-h-screen p-6">
-      <h2 className="text-2xl font-bold text-black mb-4">Selecciona un personaje</h2>
-
-      {/* Filtros */}
-      <div className="mb-4 flex flex-wrap gap-4 justify-center">
-        <select
-          value={characterFilter}
-          onChange={(e) => setCharacterFilter(e.target.value)}
-          className="p-2 bg-gray-200 text-black rounded"
-        >
-          <option value="All">All Characters</option>
-          <option value="Starred">Starred</option>
-          <option value="Others">Others</option>
-        </select>
-
-        <select
-          value={speciesFilter}
-          onChange={(e) => setSpeciesFilter(e.target.value)}
-          className="p-2 bg-gray-200 text-black rounded"
-        >
-          <option value="All">All Species</option>
-          <option value="Human">Human</option>
-          <option value="Alien">Alien</option>
-        </select>
-
-        <select
-          value={sortOrder}
-          onChange={(e) => setSortOrder(e.target.value)}
-          className="p-2 bg-gray-200 text-black rounded"
-        >
-          <option value="A-Z">A-Z</option>
-          <option value="Z-A">Z-A</option>
-        </select>
-      </div>
-
-      {/* Lista filtrada y ordenada */}
-      <ul className="grid grid-cols-2 gap-4">
-        {sortedCharacters.map((character: any) => (
-          <li key={character.id} className="p-4 border rounded-lg bg-white shadow-md">
-            <Link to={`/character/${character.id}`} className="hover:underline">
-              <img src={character.image} alt={character.name} className="w-20 h-20 rounded-full mx-auto" />
-              <p className="mt-2 text-black font-bold">{character.name}</p>
-              <p className="text-sm text-gray-500">{character.species}</p>
-            </Link>
-            <button
-              onClick={() => toggleFavorite(character.id)}
-              className={`mt-2 px-4 py-1 rounded ${
-                favorites.includes(character.id) ? "bg-yellow-500" : "bg-gray-600"
-              } text-white`}
-            >
-              {favorites.includes(character.id) ? "★ Starred" : "☆ Star"}
-            </button>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
+  return null; // No mostramos nada, redirige automáticamente
 };
 
 export default Home;
