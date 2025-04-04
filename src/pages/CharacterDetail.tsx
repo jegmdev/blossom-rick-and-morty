@@ -79,14 +79,14 @@ const CharacterDetail: React.FC = () => {
   const character = data.character;
 
   return (
-    <div className="bg-white text-black p-6 px-[200px] rounded-lg max-w-auto mx-auto">
-      <div className="flex flex-col relative">
+    <div className="bg-white text-black p-6 px-4 sm:px-6 md:px-16 lg:px-28 xl:px-[200px] rounded-lg max-w-auto mx-auto">
+      <div className="flex flex-col items-center sm:items-start relative">
         <img
           src={character.image}
           alt={character.name}
-          className="w-20 h-20 rounded-full"
+          className="w-24 h-24 sm:w-20 sm:h-20 rounded-full"
         />
-        <h2 className="text-2xl font-bold mt-3">
+        <h2 className="text-2xl font-bold mt-3 text-center sm:text-left">
           {character.name || "Desconocido"}
         </h2>
         <button
@@ -94,9 +94,7 @@ const CharacterDetail: React.FC = () => {
           className="bg-white rounded-full p-2 absolute left-12 bottom-10 shadow-md transition-transform active:scale-90"
         >
           <FaHeart
-            className={`text-lg ${
-              isStarred ? "text-green-500" : "text-gray-400"
-            }`}
+            className={`text-lg ${isStarred ? "text-green-500" : "text-gray-400"}`}
           />
         </button>
       </div>
@@ -118,7 +116,7 @@ const CharacterDetail: React.FC = () => {
         </div>
       </div>
 
-      <div className="mt-6 w-[50%]">
+      <div className="mt-6 w-full sm:w-[80%] md:w-[60%] lg:w-[50%]">
         <h3 className="text-xl font-semibold">Comentarios</h3>
         <br />
         <div className="mb-4">
