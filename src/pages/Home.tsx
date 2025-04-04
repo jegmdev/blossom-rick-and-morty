@@ -28,7 +28,7 @@ const Home: React.FC = () => {
     localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
   };
 
-  if (loading) return <p className="text-white">Loading...</p>;
+  if (loading) return <p className="text-black">Loading...</p>;
   if (error) return <p className="text-red-500">Error: {error.message}</p>;
 
   // Filtrar personajes
@@ -54,15 +54,15 @@ const Home: React.FC = () => {
   });
 
   return (
-    <div className="text-center text-white">
-      <h2 className="text-2xl mb-4">Selecciona un personaje</h2>
+    <div className="text-center bg-white min-h-screen p-6">
+      <h2 className="text-2xl font-bold text-black mb-4">Selecciona un personaje</h2>
 
       {/* Filtros */}
       <div className="mb-4 flex flex-wrap gap-4 justify-center">
         <select
           value={characterFilter}
           onChange={(e) => setCharacterFilter(e.target.value)}
-          className="p-2 bg-gray-800 text-white rounded"
+          className="p-2 bg-gray-200 text-black rounded"
         >
           <option value="All">All Characters</option>
           <option value="Starred">Starred</option>
@@ -72,7 +72,7 @@ const Home: React.FC = () => {
         <select
           value={speciesFilter}
           onChange={(e) => setSpeciesFilter(e.target.value)}
-          className="p-2 bg-gray-800 text-white rounded"
+          className="p-2 bg-gray-200 text-black rounded"
         >
           <option value="All">All Species</option>
           <option value="Human">Human</option>
@@ -82,7 +82,7 @@ const Home: React.FC = () => {
         <select
           value={sortOrder}
           onChange={(e) => setSortOrder(e.target.value)}
-          className="p-2 bg-gray-800 text-white rounded"
+          className="p-2 bg-gray-200 text-black rounded"
         >
           <option value="A-Z">A-Z</option>
           <option value="Z-A">Z-A</option>
@@ -92,16 +92,17 @@ const Home: React.FC = () => {
       {/* Lista filtrada y ordenada */}
       <ul className="grid grid-cols-2 gap-4">
         {sortedCharacters.map((character: any) => (
-          <li key={character.id} className="p-4 border rounded-lg">
+          <li key={character.id} className="p-4 border rounded-lg bg-white shadow-md">
             <Link to={`/character/${character.id}`} className="hover:underline">
               <img src={character.image} alt={character.name} className="w-20 h-20 rounded-full mx-auto" />
-              <p className="mt-2">{character.name}</p>
+              <p className="mt-2 text-black font-bold">{character.name}</p>
+              <p className="text-sm text-gray-500">{character.species}</p>
             </Link>
             <button
               onClick={() => toggleFavorite(character.id)}
               className={`mt-2 px-4 py-1 rounded ${
                 favorites.includes(character.id) ? "bg-yellow-500" : "bg-gray-600"
-              }`}
+              } text-white`}
             >
               {favorites.includes(character.id) ? "★ Starred" : "☆ Star"}
             </button>
