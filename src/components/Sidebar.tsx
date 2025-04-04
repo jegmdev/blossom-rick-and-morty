@@ -23,7 +23,9 @@ const Sidebar: React.FC<SidebarProps> = ({ className }) => {
     : null;
 
   useEffect(() => {
-    const storedFavorites = JSON.parse(localStorage.getItem("favorites") || "[]");
+    const storedFavorites = JSON.parse(
+      localStorage.getItem("favorites") || "[]"
+    );
     setFavorites(storedFavorites);
   }, []);
 
@@ -65,14 +67,17 @@ const Sidebar: React.FC<SidebarProps> = ({ className }) => {
     const matchesSpecies =
       speciesFilter === "All" || character.species === speciesFilter;
 
-    const matchesSearch =
-      character.name.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesSearch = character.name
+      .toLowerCase()
+      .includes(searchTerm.toLowerCase());
 
     return matchesCharacter && matchesSpecies && matchesSearch;
   });
 
   const sortedCharacters = [...filteredCharacters].sort((a, b) =>
-    sortOrder === "A-Z" ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name)
+    sortOrder === "A-Z"
+      ? a.name.localeCompare(b.name)
+      : b.name.localeCompare(a.name)
   );
 
   const starredCharacters = sortedCharacters.filter((char: any) =>
@@ -85,7 +90,9 @@ const Sidebar: React.FC<SidebarProps> = ({ className }) => {
   const renderCharacter = (character: any) => (
     <li
       key={character.id}
-      className={`flex items-center gap-2 p-2 rounded-md ${selectedCharacterId === character.id ? "p-4 bg-purple-200" : ""}`}
+      className={`flex items-center gap-2 p-2 rounded-md ${
+        selectedCharacterId === character.id ? "p-4 bg-purple-200" : ""
+      }`}
     >
       <img
         src={character.image}
@@ -106,7 +113,11 @@ const Sidebar: React.FC<SidebarProps> = ({ className }) => {
         className="bg-white rounded-full p-1"
       >
         <FaHeart
-          className={`text-lg ${favorites.includes(character.id) ? "text-green-500" : "text-gray-400"}`}
+          className={`text-lg ${
+            favorites.includes(character.id)
+              ? "text-green-500"
+              : "text-gray-400"
+          }`}
         />
       </button>
     </li>
@@ -116,7 +127,9 @@ const Sidebar: React.FC<SidebarProps> = ({ className }) => {
 
   return (
     <aside className="w-1/5 min-w-[20%] h-max bg-gray-50 p-4 px-[20px] relative">
-      <h1 className="text-[24px] font-bold text-black mb-4">Rick and Morty List</h1>
+      <h1 className="text-[24px] font-bold text-black mb-4">
+        Rick and Morty List
+      </h1>
 
       <div className="relative flex items-center mb-4">
         <input
@@ -128,21 +141,48 @@ const Sidebar: React.FC<SidebarProps> = ({ className }) => {
         />
         <FaSearch className="absolute left-3 text-gray-500" />
         <button
-          className={`absolute right-3 transition ${showFilters ? "text-black" : "text-gray-500 hover:text-black"}`}
+          className={`absolute right-3 transition ${
+            showFilters
+              ? "text-[#5A3696]"
+              : "text-[#8054C7] hover:text-[#5A3696]"
+          } hover:bg-[#eee3ff] hover:shadow-md p-4 rounded-md`}
           onClick={() => setShowFilters(!showFilters)}
         >
-          <FaSlidersH />
+          <FaSlidersH className="rotate-90" />
         </button>
+      </div>
+      <div className="flex justify-between items-center text-sm text-gray-600 mt-2">
+        <span className="font-semibold text-blue-500">
+          {sortedCharacters.length} Results
+        </span>
+
+        {isFilterActive && (
+          <span className="bg-green-100 text-green-700 px-2 py-1 rounded-full text-xs font-semibold">
+            {[
+              characterFilter !== "All" ? 1 : 0,
+              speciesFilter !== "All" ? 1 : 0,
+            ].reduce((acc, val) => acc + val, 0)}{" "}
+            Filter
+            {[
+              characterFilter !== "All" ? 1 : 0,
+              speciesFilter !== "All" ? 1 : 0,
+            ].reduce((acc, val) => acc + val, 0) > 1
+              ? "s"
+              : ""}
+          </span>
+        )}
       </div>
 
       {showFilters && (
         <div className="absolute top-30 left-0 w-[calc(100%-40px)] mx-5 bg-white shadow-lg rounded-lg p-8 z-10">
           <h3 className="text-black font-bold">Character</h3>
           <div className="flex gap-2 my-2">
-            {['All', 'Starred', 'Others'].map((filter) => (
+            {["All", "Starred", "Others"].map((filter) => (
               <button
                 key={filter}
-                className={`border border-gray-300 flex-1 px-4 py-2 rounded text-black ${characterFilter === filter ? 'bg-purple-200' : 'bg-white'}`}
+                className={`border border-gray-300 flex-1 px-4 py-2 rounded text-black ${
+                  characterFilter === filter ? "bg-purple-200" : "bg-white"
+                }`}
                 onClick={() => setCharacterFilter(filter)}
               >
                 {filter}
@@ -152,20 +192,23 @@ const Sidebar: React.FC<SidebarProps> = ({ className }) => {
 
           <h3 className="text-black font-bold">Specie</h3>
           <div className="flex gap-2 my-2">
-            {['All', 'Human', 'Alien'].map((filter) => (
+            {["All", "Human", "Alien"].map((filter) => (
               <button
                 key={filter}
-                className={`border border-gray-300 flex-1 px-4 py-2 rounded text-black ${speciesFilter === filter ? 'bg-purple-200' : 'bg-white'}`}
+                className={`border border-gray-300 flex-1 px-4 py-2 rounded text-black ${
+                  speciesFilter === filter ? "bg-purple-200" : "bg-white"
+                }`}
                 onClick={() => setSpeciesFilter(filter)}
               >
                 {filter}
               </button>
             ))}
           </div>
-
           <button
             className={`w-full mt-4 p-2 rounded transition-colors ${
-              isFilterActive ? "bg-[#8054c7] text-white" : "bg-gray-100"
+              isFilterActive
+                ? "bg-[#8054c7] text-white hover:bg-[#5a3696]"
+                : "bg-gray-100 hover:bg-[#5a3696] hover:text-white"
             }`}
             onClick={() => setShowFilters(false)}
           >
@@ -175,21 +218,23 @@ const Sidebar: React.FC<SidebarProps> = ({ className }) => {
       )}
 
       <div className="mt-4">
-        <h2 className="text-lg font-semibold text-black mb-2">
-          Starred Characters ({starredCharacters.length})
+        <h2 className="text-[12px] font-semibold text-gray-400 mb-2">
+          STARRED CHACTERS ({starredCharacters.length})
         </h2>
         <ul className="space-y-2">
           {starredCharacters.map((character) => renderCharacter(character))}
         </ul>
-
-        <h2 className="text-lg font-semibold text-black mt-6 mb-2">
-          Characters ({otherCharacters.length})
+        <br />
+        <h2 className="text-[12px] font-semibold text-gray-400 mb-2">
+          CHARACTERS ({otherCharacters.length})
         </h2>
         <ul className="space-y-2">
           {otherCharacters.map((character, index) => (
             <React.Fragment key={character.id}>
               {renderCharacter(character)}
-              {index < otherCharacters.length - 1 && <hr className="border-t border-gray-300" />}
+              {index < otherCharacters.length - 1 && (
+                <hr className="border-t border-gray-300" />
+              )}
             </React.Fragment>
           ))}
         </ul>

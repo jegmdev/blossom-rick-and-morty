@@ -103,23 +103,24 @@ const CharacterDetail: React.FC = () => {
 
       <div className="mt-6 w-full">
         <div className="py-2">
-          <p className="font-bold">Specie:</p>
-          <p>{character.species || "Desconocido"}</p>
+          <p className="font-bold">Specie</p>
+          <p className="text-[16px] text-gray-400">{character.species || "Desconocido"}</p>
         </div>
-        <hr className="border-gray-300" />
+        <hr className="border-gray-200" />
         <div className="py-2">
-          <p className="font-bold">Status:</p>
-          <p>{character.status || "Desconocido"}</p>
+          <p className="font-bold">Status</p>
+          <p className="text-[16px] text-gray-400">{character.status || "Desconocido"}</p>
         </div>
-        <hr className="border-gray-300" />
+        <hr className="border-gray-200" />
         <div className="py-2">
-          <p className="font-bold">Gender:</p>
-          <p>{character.gender || "Desconocido"}</p>
+          <p className="font-bold">Gender</p>
+          <p className="text-[16px] text-gray-400">{character.gender || "Desconocido"}</p>
         </div>
       </div>
 
       <div className="mt-6 w-[50%]">
         <h3 className="text-xl font-semibold">Comentarios</h3>
+        <br />
         <div className="mb-4">
           <input
             type="text"
