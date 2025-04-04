@@ -23,7 +23,7 @@ const CharacterDetail: React.FC = () => {
     setComment("");
   };
 
-  if (loading) return <p className="text-black">Cargando...</p>;
+  if (loading) return <p className="text-white">Cargando...</p>;
   if (error) return <p className="text-red-500">Error: {error.message}</p>;
 
   if (!data || !data.character) {
@@ -33,31 +33,45 @@ const CharacterDetail: React.FC = () => {
   const character = data.character;
 
   return (
-    <div className="bg-white text-black p-6 min-h-screen">
-      <h2 className="text-3xl font-bold">{character?.name || "Desconocido"}</h2>
-      <img
-        src={character?.image || ""}
-        alt={character?.name || "Desconocido"}
-        className="w-40 h-40 rounded-full mx-auto my-4"
-      />
-      <p className="text-gray-500">Status: {character?.status || "Desconocido"}</p>
-      <p className="text-gray-500">Species: {character?.species || "Desconocido"}</p>
-      <p className="text-gray-500">Origin: {character?.origin?.name || "Desconocido"}</p>
+    <div className="bg-white text-black p-6 px-[200px] rounded-lg max-w-auto mx-auto">
+      {/* Imagen y Nombre */}
+      <div className="flex flex-col">
+        <img src={character.image} alt={character.name} className="w-20 h-20 rounded-full" />
+        <h2 className="text-2xl font-bold mt-3">{character.name || "Desconocido"}</h2>
+      </div>
 
-      {/* Sección de comentarios */}
-      <div className="mt-6">
-        <h3 className="text-xl font-bold text-black mb-2">Comentarios</h3>
+      {/* Detalles */}
+      <div className="mt-6 w-full">
+        <div className="py-2">
+          <p className="font-bold">Specie:</p>
+          <p>{character.species || "Desconocido"}</p>
+        </div>
+        <hr className="border-gray-300" />
+        <div className="py-2">
+          <p className="font-bold">Status:</p>
+          <p>{character.status || "Desconocido"}</p>
+        </div>
+        <hr className="border-gray-300" />
+        <div className="py-2">
+          <p className="font-bold">Gender:</p>
+          <p>{character.gender || "Desconocido"}</p>
+        </div>
+      </div>
+
+      {/* Comentarios */}
+      <div className="mt-6 w-full">
+        <h3 className="text-xl font-semibold">Comentarios</h3>
         <div className="mb-4">
           <input
             type="text"
             value={comment}
             onChange={(e) => setComment(e.target.value)}
-            className="p-2 bg-gray-200 text-black rounded w-full"
+            className="p-2 bg-gray-200 rounded w-full"
             placeholder="Escribe un comentario..."
           />
           <button
             onClick={handleAddComment}
-            className="mt-2 px-4 py-1 bg-blue-500 rounded hover:bg-blue-600 text-white"
+            className="mt-2 px-4 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 w-full"
           >
             Agregar Comentario
           </button>
@@ -66,9 +80,7 @@ const CharacterDetail: React.FC = () => {
         <ul className="mt-2 space-y-2">
           {comments.length > 0 ? (
             comments.map((cmt, index) => (
-              <li key={index} className="p-2 bg-gray-100 rounded text-black">
-                {cmt}
-              </li>
+              <li key={index} className="p-2 bg-gray-100 rounded">{cmt}</li>
             ))
           ) : (
             <p className="text-gray-400">Aún no hay comentarios.</p>
