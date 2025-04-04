@@ -1,54 +1,46 @@
-# React + TypeScript + Vite
+# Rick and Morty API - Blossom
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este es un proyecto de prueba técnica para Blossom, desarrollado en **React 18 con TypeScript y GraphQL**. La aplicación muestra una lista de personajes de *Rick and Morty*, permite ver detalles, marcar favoritos, agregar comentarios y aplicar filtros y ordenamiento.
 
-Currently, two official plugins are available:
+## 🚀 Características
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+✅ Listado de personajes con imagen, nombre y especie  
+✅ Detalle del personaje con más información  
+✅ Filtrado por favoritos y especie  
+✅ Ordenamiento de A-Z y Z-A  
+✅ Persistencia de favoritos en `localStorage`  
+✅ Diseño responsivo con **TailwindCSS**  
 
-## Expanding the ESLint configuration
+## 🛠️ Tecnologías Utilizadas
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **React 18** (con TypeScript)
+- **GraphQL** (Apollo Client)
+- **React Router DOM** (para navegación)
+- **TailwindCSS** (para estilos)
+- **Vite** (como herramienta de desarrollo)
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## 📦 Instalación y Ejecución
+
+### 1️⃣ Clonar el repositorio
+```bash
+git clone https://github.com/jegmdev/blossom-rick-and-morty
+cd tu-repositorio
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+### 2️⃣ Instalar dependencias
+```bash
+npm install
 ```
+
+### 3️⃣ Ejecutar el proyecto
+```bash
+npm run dev
+```
+
+## 📄 Licencia
+
+Este proyecto es parte de una prueba técnica y su uso está limitado según los términos de Blossom.
+
+---
+
+✨ **Desarrollado con pasión por Juan Garcés** ✨
